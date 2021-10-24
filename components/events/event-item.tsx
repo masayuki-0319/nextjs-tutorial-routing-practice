@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { Event } from '../../hooks/dummy-data';
+import classes from './event-item.module.css';
 
 type Props = {
   [K in keyof Pick<
@@ -23,17 +24,17 @@ const EventItem: VFC<Props> = (props) => {
   const exploreLink = `/events/${id}`;
 
   return (
-    <li>
-      <Image src={image} alt={title} width='200' height='100' />
-      <div>
-        <h2>{title}</h2>
-        <div>
+    <li className={classes.item}>
+      <Image src={image} alt={title} width='50' height='50' />
+      <div className={classes.content}>
+        <h2 className={classes.summary}>{title}</h2>
+        <div className={classes.date}>
           <time>{humanReadableDate}</time>
         </div>
-        <div>
+        <div className={classes.address}>
           <address>{formattetAddress}</address>
         </div>
-        <div>
+        <div className={classes.action}>
           <Link href={exploreLink}>Explore Event</Link>
         </div>
       </div>
