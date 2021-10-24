@@ -4,6 +4,10 @@ import Image from 'next/image';
 
 import { Event } from '../../hooks/dummy-data';
 import classes from './event-item.module.css';
+import { Button } from '../ui/button';
+import { DateIcon } from '../icons/date-icon';
+import { AddressIcon } from '../icons/address-icon';
+import { ArrowRightIcon } from '../icons/arrow-right-icon';
 
 type Props = {
   [K in keyof Pick<
@@ -29,13 +33,20 @@ const EventItem: VFC<Props> = (props) => {
       <div className={classes.content}>
         <h2 className={classes.summary}>{title}</h2>
         <div className={classes.date}>
+          <DateIcon />
           <time>{humanReadableDate}</time>
         </div>
         <div className={classes.address}>
+          <AddressIcon />
           <address>{formattetAddress}</address>
         </div>
         <div className={classes.action}>
-          <Link href={exploreLink}>Explore Event</Link>
+          <Button link={exploreLink}>
+            <span>Explore Event</span>
+            <span className={classes.icon}>
+              <ArrowRightIcon />
+            </span>
+          </Button>
         </div>
       </div>
     </li>
