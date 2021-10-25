@@ -4,16 +4,25 @@ import Link from 'next/link';
 import classes from './button.module.css';
 
 type Props = {
-  link: string;
-  children: JSX.Element[];
+  link?: string;
+  onClick?: () => any;
+  children: JSX.Element[] | string;
 };
 
 export const Button: VFC<Props> = (props) => {
-  const { link, children } = props;
+  const { link, onClick, children } = props;
 
-  return (
-    <Link href={link}>
-      <a className={classes.btn}>{children}</a>
-    </Link>
-  );
+  if (link) {
+    return (
+      <Link href={link}>
+        <a className={classes.btn}>{children}</a>
+      </Link>
+    );
+  } else {
+    return (
+      <button className={classes.btn} onClick={onClick}>
+        {children}
+      </button>
+    );
+  }
 };

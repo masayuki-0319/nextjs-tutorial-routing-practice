@@ -1,13 +1,13 @@
 import EventList from '../../components/events/event-list';
+import { EventSearch } from '../../components/events/event-search';
 import { getAllEvents } from '../../hooks/dummy-data';
 
 const AllEventsPage = () => {
   const events = getAllEvents();
-  console.log(events);
 
   return (
     <div>
-      <h1>All Events Page</h1>
+      <EventSearch />
       <EventList items={events} />
     </div>
   );
