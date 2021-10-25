@@ -5,7 +5,7 @@ import classes from './button.module.css';
 
 type Props = {
   link?: string;
-  onClick?: () => any;
+  onClick?: (...k: any) => void;
   children: JSX.Element[] | string;
 };
 

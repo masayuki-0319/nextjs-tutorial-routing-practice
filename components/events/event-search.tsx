@@ -1,28 +1,39 @@
-import { VFC } from 'react';
+import { FormEvent, useRef, VFC } from 'react';
 
 import { Button } from '../ui/button';
 import classes from './event-search.module.css';
 
-type Props = {};
+type Props = {
+  onSearch: (month: string, year: string) => any;
+};
 
 export const EventSearch: VFC<Props> = (props) => {
-  const {} = props;
+  const { onSearch } = props;
+  const yearInputRef = useRef<HTMLSelectElement>(null);
+  const monthInputRef = useRef<HTMLSelectElement>(null);
 
-  const onClickHandler = () => {};
+  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const selectedYear = yearInputRef.current!.value;
+    const selectedMonth = monthInputRef.current!.value;
+
+    onSearch(selectedYear, selectedMonth);
+  };
 
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={(e) => submitHandler(e)}>
       <div className={classes.controls}>
         <div className={classes.control}>
           <label htmlFor='year'>Year</label>
-          <select id='year'>
+          <select id='year' ref={yearInputRef}>
             <option value='2021'>2021</option>
             <option value='2022'>2022</option>
           </select>
         </div>
         <div className={classes.control}>
           <label htmlFor='month'>Month</label>
-          <select id='month'>
+          <select id='month' ref={monthInputRef}>
             <option value='1'>1月</option>
             <option value='2'>2月</option>
             <option value='3'>3月</option>
@@ -38,7 +49,7 @@ export const EventSearch: VFC<Props> = (props) => {
           </select>
         </div>
       </div>
-      <Button onClick={onClickHandler}>イベント検索</Button>
+      <Button>イベント検索</Button>
     </form>
   );
 };
