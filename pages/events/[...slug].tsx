@@ -1,4 +1,8 @@
 import { useRouter } from 'next/dist/client/router';
+import EventList from '../../components/events/event-list';
+import { ResultTitle } from '../../components/events/result-title';
+import { Button } from '../../components/ui/button';
+import { ErrorAlert } from '../../components/ui/error-alert';
 import { getFilteredEvents } from '../../hooks/dummy-data';
 
 const FilteredEventsPage = () => {
@@ -23,18 +27,37 @@ const FilteredEventsPage = () => {
     numMonth < 1 ||
     numMonth > 12
   ) {
-    return <p>Invalid filter.</p>;
+    return (
+      <>
+        <ErrorAlert>
+          <p>Invalid filter.</p>
+        </ErrorAlert>
+        <div className='center'>
+          <Button link='/events'>Show All Events</Button>
+        </div>
+      </>
+    );
   }
 
   const filteredEvent = getFilteredEvents({ year: numYear, month: numMonth });
-
   if (!filteredEvent || filteredEvent.length === 0) {
-    return <p>No events found for the chosen filter!</p>;
+    return (
+      <>
+        <p>No events found for the chosen filter!</p>
+        <div className='center'>
+          <Button link='/events'>Show All Events</Button>
+        </div>
+      </>
+    );
   }
+
+  const date = new Date(numYear, numMonth - 1);
+
   return (
-    <div>
-      <h1>Filtered Events</h1>
-    </div>
+    <>
+      <ResultTitle date={date} />
+      <EventList items={filteredEvent} />
+    </>
   );
 };
 
